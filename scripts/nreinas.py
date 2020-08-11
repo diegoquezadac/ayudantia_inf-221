@@ -1,5 +1,6 @@
 ### Problema de las N Reinas
 ### Diego Quezada - Ayudante Algoritmos y Complejidad
+### Para ver el código en acción setee el valor de n a gusto, luego ejecute via consola como "python3 nreinas.py"
 
 # 4 reinas -> 2 soluciones
 # 8 reinas -> 12 soluciones
