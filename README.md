@@ -8,8 +8,9 @@ Semanalmente se subirán presentaciones (en formato md y pdf) y códigos (Python
 
 - Alternativamente puede descargar facilmente el repositorio haciendo clic en **Code** y luego **Download ZIP**.
 
+### Conctacto
 Bajo cualquier duda o consulta respecto al material aquí disponible contactar vía correo electrónico:
 
-> Contacto diego.quezadac@sansano.usm.cl
+> diego.quezadac@sansano.usm.cl
 
 
