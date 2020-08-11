@@ -4,7 +4,7 @@ Semanalmente se subirán presentaciones (en formato md y pdf) y códigos (Python
 
 ### ¿Cómo puedo descargar todo el material?
 - Usted puede clonar directamente el repositorio escrbiendo lo siguiente en su consola:
-> git clone https://github.com/diegoquezadac/ayudantias_inf-221.git
+>> git clone https://github.com/diegoquezadac/ayudantias_inf-221.git
 
 - Alternativamente puede descargar facilmente el repositorio haciendo clic en **Code** y luego **Download ZIP**.
 
