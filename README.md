@@ -10,6 +10,6 @@ Semanalmente se subirán presentaciones (en formato md y pdf) y códigos (Python
 
 Bajo cualquier duda o consulta respecto al material aquí disponible contactar vía correo electrónico:
 
-> Conctacto diego.quezadac@sansano.usm.cl
+> Contacto diego.quezadac@sansano.usm.cl
 
 
