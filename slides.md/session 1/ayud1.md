@@ -146,5 +146,4 @@ Suponga una aproximación $x_a$ para el cero $c$ de una función $f(x)$. Tenemos
 
 ---
 # Ejercicios
-
 :warning: Work in progress :warning:
