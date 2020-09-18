@@ -1,6 +1,6 @@
 # Material Ayudantía Algoritmos y Complejidad
 
-Semanalmente se subirán presentaciones (en formato md y pdf) y códigos (Python, C y Haskell) utilizados.
+Semanalmente se actualizarán las presentaciones (en formato md y pdf) y los códigos (Python, C, quizás Haskell) utilizados en las sesiones de ayudantía.
 
 ### ¿Cómo puedo descargar todo el material?
 - Usted puede clonar directamente el repositorio escribiendo lo siguiente en su consola:
