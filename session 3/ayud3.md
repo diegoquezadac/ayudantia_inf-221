@@ -37,15 +37,39 @@ Algoritmos y complejidad
 # Matriz de Vandermonde
 - La idea es plantear un **sistema de ecuaciones**, analizar si tiene sentido y resolverlo en caso de ser posible. 
 - Se busca el siguiente polinomio: 
-$$P_{n-1}(x) = c_0 + c_1 + c_2x^2 + \dots + c_{n-1}x^{n-1} = \sum_{i = 0}^{n-1} c_ix^i$$
+$$P_{n-1}(x) = a_0 + a_1x + a_2x^2 + \dots + c_{n-1}x^{n-1} = \sum_{i = 0}^{n-1} a_ix^i$$
 
 ---
 
 - Suponga tenemos el siguiente conjunto de puntos  $\{(x_0,y_0), (x_1, y_1), (x_2, y_2)\}$.
 - Podemos plantear lo siguiente:
-$$y_0 = c_0 + c_1 + c_2x_0^2$$
-$$y_1 = c_0 + c_1 + c_2x_1^2$$
-$$y_2 = c_0 + c_1 + c_2x_2^2$$
+$$a_0 + a_1 x_1 + a_2x_1^2 = y_1$$
+$$a_0 + a_1 x_2 + a_2x_2^2 = y_2$$
+$$a_0 + a_1 x_3 + a_2x_3^2 = y_3$$
+- Lo único que no conocemos de estas ecuaciones son los coeficientes $a_0, a_1$ y $a_2$.
+
+---
+
+- Esto lo podemos plantear matricialmente como:
+$$\begin{pmatrix}
+  1 & x_1 & x_1^2 \\
+  1 & x_2 & x_2^2 \\
+  1 & x_3 & x_3^2
+\end{pmatrix} \begin{pmatrix}
+  a_0 \\
+  a_1 \\
+  a_2
+\end{pmatrix} = \begin{pmatrix}
+  y_1 \\
+  y_2 \\
+  y_3
+\end{pmatrix} $$
+
+- Esto tendrá solución cuando el determinante de la matriz de los $x_i$ sea distinto de 0. Por suerte este determinante es conocido y viene dado por:
+
+$$ \prod_{1 \leq i < j \leq n} (x_j - x_i)$$
+
+- En este caso sería $(x_2 - x_1)(x_3 - x_1)(x_3 - x_2)$.
 
 ---
 # Interpolación de Lagrange
@@ -117,34 +141,32 @@ $$f(x) - P(x) = \frac{(x-x_1)(x-x_2)\cdots(x-x_n)}{n!}f^{(n)}(c)$$
 ---
 
 # Interpolación de Chebyshev
-- Suponga estamos interesados en interpolar una función en el intervalo $[-1,-1]$.
+- Suponga estamos interesados en interpolar una función en el intervalo $[-1,1]$.
 - La idea es elegir cuidadosamente $n$ puntos de forma que estos **minimicen** el error de interpolación.
-- En particular, buscaremos **minimizar el valor máximo** de:
+- Buscaremos **minimizar el valor máximo** de:
 $$(x-x_1)(x-x_2)\cdots (x-x_n)$$
 
-:bulb: Estamos minimizando el **peor caso** del error en la interpolación.
+:bulb: Así, estamos minimizando el **peor caso** (min max) del error en la interpolación.
 
 ---
 
 ### Teorema de Chebyshev
 - La selección de valores $-1 \leq x_i,\dots, x_n \leq 1$ que minimiza $max |(x-x_1)\cdots (x-x_n)|$ es:
 $$x_i = cos\frac{(2i-1)\pi}{2n}, \text{para } i = 1, \dots, n$$
-- Este min-max está **acotado superiormente** por $\frac{1}{2^{n-1}}$. :pray:
-- Al interpolar estos puntos, el error se distribuirá uniformemente.
+- Este min-max está **acotado superiormente**:  
+$$ |(x - x_1) \dots (x - x_n)| \leq \frac{1}{2^{n-1}}$$
 
-¿Siempre podremos seleccionar los $x_i$? :astonished:
+
+--- 
+- Al interpolar estos puntos, el error se distribuirá uniformemente. Adios Runge.
 
 ---
 
 ### Cambio de intervalo
 - Para un intervalo general $[a,b]$ los puntos de Chevyshev vienen dados por:
 $$x_i = \frac{b+a}{2} + \frac{b-a}{2}\cdot cos\frac{(2i-1)\pi}{2n}, \text{para } i = 1,\dots, n$$
-- En este caso la cota superior para el minmax será $\frac{(\frac{b-a}{2})^n}{2^{n-1}}$.
-
----
-
-### Cotas
-- Las cotas obtenidas con los puntos de Chebyshev son usualmente menores (mejores) que para interpolaciones con puntos equiespaciados.
+- En este caso la cota superior será:
+$$ |(x - x_1) \dots (x - x_n)| \leq\frac{(\frac{b-a}{2})^n}{2^{n-1}}$$
 
 ---
 # Ejercicios
@@ -160,6 +182,3 @@ def p(x):
     return (-5/2)* (x**2) + (23/2)*x - 8 + (4/3)*(x**3 - 6*(x**2) + 11*x - 6) 
           - (17/24)*(x**4 - 10 * (x**3) + 35*(x**2) - 50*x + 24)
 ```
-
----
-# Interesting things
