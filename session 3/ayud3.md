@@ -127,7 +127,7 @@ $$f(x) - P(x) = \frac{(x-x_1)(x-x_2)\cdots(x-x_n)}{n!}f^{(n)}(c)$$
 
 
 ---
-- c es un valor entre $min(X)$ y $max(X)$.
+- c es un valor entre el mínimo y el máximo valor de $x_i$ en $X$.
 - La idea es tomar un $c$ que maximice el error.
 - Así obtendremos una cota superior para el error.
 
@@ -155,10 +155,7 @@ $$(x-x_1)(x-x_2)\cdots (x-x_n)$$
 $$x_i = cos\frac{(2i-1)\pi}{2n}, \text{para } i = 1, \dots, n$$
 - Este min-max está **acotado superiormente**:  
 $$ |(x - x_1) \dots (x - x_n)| \leq \frac{1}{2^{n-1}}$$
-
-
---- 
-- Al interpolar estos puntos, el error se distribuirá uniformemente. Adios Runge.
+- Al interpolar estos puntos, el error se distribuirá uniformemente. 
 
 ---
 
@@ -172,8 +169,6 @@ $$ |(x - x_1) \dots (x - x_n)| \leq\frac{(\frac{b-a}{2})^n}{2^{n-1}}$$
 # Ejercicios
 1. Interpole el siguiente conjunto de puntos mediante el Lagrange: $X = \{(1,1), (2, 5), (3, 4)\}$
 2. Interpole el mismo conjunto de puntos mediante **diferencias divididas**.
-   
----
 3. Agregue los puntos $(4,6) \text{ y } (5,2)$ al conjunto $X$  e interpole nuevamente.
 
 **Hint:** La solución es:
@@ -182,3 +177,6 @@ def p(x):
     return (-5/2)* (x**2) + (23/2)*x - 8 + (4/3)*(x**3 - 6*(x**2) + 11*x - 6) 
           - (17/24)*(x**4 - 10 * (x**3) + 35*(x**2) - 50*x + 24)
 ```
+
+---
+4. Se quiere interpolar, utilizando puntos de Chebyshev la función $f(x) = e^{2x}$ en el intervalo $[0,r]$, encuentre una cota para el número mínimo de puntos necesarios para que el error sea menor que $\varepsilon$ en dicho intervalo

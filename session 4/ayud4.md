@@ -15,16 +15,17 @@ Algoritmos y complejidad
 ---
 # Temario
 ### Cuadratura
-- Aproximación con rectángulos
+- Regla del rectángulo
 - Regla del Trapecio (primer grado)
 - Regla de Simpson (segundo grado)
+- Cuadratura Gaussiana
 
 ---
 # Cuadratura
 - Dada una función de interés $f(x)$ y un intervalo $[a,b]$, buscamos aproximar $\displaystyle \int_a^b f(x) dx$.
 
 ---
-# Aproximación con rectángulos
+# Regla del rectángulo
 - Aproximaremos la integral mediante un **número finito de rectángulos**.
 - Considere un intervalo $[x_0, x_1, x_2 , \dots, x_n]$ donde $x_0 = a$, $x_n = b$.
 - Podemos aproximar la integral mediante:
@@ -43,7 +44,7 @@ $$
 - Si evaluamos en el punto medio del intervalo $x_{i+1} - x_i$ obtendremos generalmente mejores aproximaciones.
 
 $$
-\int_a^b f(x)dx \approx h\sum_{i = 0}^n f (\frac{x_i + x_{i+1}}{2}) 
+\int_a^b f(x)dx \approx h\sum_{i = 0}^{n - 1} f (\frac{x_i + x_{i+1}}{2}) 
 $$
 
 ![center h:250](./images/rectangulo_medio.png)
@@ -55,7 +56,7 @@ $$
 ### Caso general
 - Al expandir $\displaystyle F(x) = \int_{x_i}^x f(t)dt$ mediante Taylor alrededor de $x_i$ se obtiene:
 $$
-\int_{x_i}^{x_{i+1}} f(x) dx = hf(x_i) + h^2\frac{f^\prime(c)}{2}
+\int_{x_i}^{x_{i+1}} f(x)dx = hf(x_i) + h^2\frac{f^\prime(c)}{2}
 $$
 - donde $h = x_{i+1} - x_i$ y $c \in [x_i, x_{i+1}]$.
 - El error es $\displaystyle h^2 \frac{f^\prime(c)}{2}$, es decir $O(h^2)$ **para cada intervalo**.
@@ -66,12 +67,11 @@ $$
 $$
 nO(h^2) = nO(\frac{(b-a)^2}{n^2}) = O(\frac{n(b-a)^2}{n^2}) \\ \qquad \qquad \quad  \space \space \space = O(\frac{(b-a)^2}{n}) = O((b-a)h) = O(h)
 $$
-> A medida que $n \rightarrow \infty$ disminuiremos el error pues $h$ se hace más pequeño.
 
 ---
 ### Variación Punto medio
 - Evaluando en el punto medio de cada intervalo tenemos:
-$$\int_{x_i}^{x_{i+1}} f(x) dx = hf(x_i) + \frac{1}{24} f^{\prime \prime}(a)h^3 + O(h^4)
+$$\int_{x_i}^{x_{i+1}} f(x) dx = hf(\frac{x_i + x_{i+1}}{2}) + \frac{1}{24} f^{\prime \prime}(a)h^3 + O(h^4)
 $$
 - El error es $O(h^3)$ **para cada intervalo**.
 - Esto es mejor que el error $O(h^2)$ para el primer caso analizado.
@@ -87,7 +87,7 @@ $$
 
 ---
 ### Deducción
-Considere un intervalo $[x_0, x_1, x_2 , \dots, x_n]$, $x_0 = a$, $x_n = b$ y  $x_{i+1} - x_i = \frac{b-a}{n} = h$, donde $n$ es el número de trapecios.
+Sea $[x_0, x_1, x_2 , \dots, x_n]$, donde $x_{i+1} - x_i = \frac{b-a}{n} = h$, y $x_0 = a, x_n = b$.
 
 :arrow_right: Para $n = 2$ tenemos:
 
@@ -109,7 +109,7 @@ $$
 
 :arrow_right: Esto se puede reescribir como:
 $$
-\int_a^b f(x) dx \approx h(\frac{f(a) + f(b)}{2} + \sum_{i = 1}^{n - 1} f(x_i))
+\int_a^b f(x) dx \approx \frac{h}{2}(f(a) + f(b) + 2\sum_{i = 1}^{n - 1} f(x_i))
 $$
 
 
@@ -132,7 +132,7 @@ $$
     \qquad \qquad  \quad= y_0 \frac{x_1 - x_0}{2} + y_1 \frac{x_1 - x_0}{2} = \frac{h}{2} \cdot(y_0 + y_1)
     $$
 
-- Notar que llegamos al área del trapecio presentada anteriormete. 
+- Notar que llegamos al área del trapecio presentada anteriormente. 
 
 
 ---
@@ -146,8 +146,8 @@ $$E = -\frac{f^{\prime \prime}(c) \cdot (b-a)}{12}h^2$$
 
 --- 
 ### Regla compuesta
-Para $n$ trapeceios tenemos:
-$$ \int_a^b f(x)dx = \frac{h}{2} (y_0 + y_n + 2 \sum_{i = 1}^{n - 1} y_i) - \frac{(b-a)h^2}{12} f^{\prime \prime} (c)$$
+Para $n$ subintervalos, y asumiendo $f \in C^2[a,b]$:
+$$ \int_a^b f(x)dx = \frac{h}{2} (f(a) + f(b) + 2 \sum_{i = 1}^{n - 1} f(x_i) )- \frac{f^{\prime \prime} (c) (b-a)}{12} h^2$$
 
 Donde $h = \frac{b-a}{n}$ y $c \in [a,b]$.
 
@@ -193,12 +193,89 @@ $$\int_{x_0}^{x_2} P(x) dx = y_0\frac{h}{3} + y_1\frac{4h}{3} + y_2\frac{h}{3}$$
 - Donde $c \in [x_0, x_2]$
 ---
 ### Regla compuesta
+Para $n$ subintervalos, con $n$ par y asumiendo $f \in C^4[a,b]$:
 
-$$\int_a^b f(x) dx = \frac{h}{3}(y_0 + y_{2m} + 4\sum_{i=1}^m y_{2i - 1} + 2\sum_{i=1}^{m - 1} y_{2i}) - \frac{(b-a)h^4}{180} f^{(4)}(c)$$
+$$\int_a^b f(x) dx = \frac{h}{3}(f(a) + f(b) + 2\sum_{i=1}^{(n/2) - 1} f(x_{2i}) + 4\sum_{i=1}^{n/2} f(x_{2i - 1})) - \frac{(b-a)h^4}{180} f^{(4)}(c)$$
 
-Donde $m = \frac{n}{2} = \frac{b-a}{2h}$ y $c \in [a,b]$.
+Donde $h =  \frac{b-a}{2}$ y $c \in [a,b]$.
 
 ---
+# Grado de precisión
+- El grado de precisión de un método de integración numérica el grado $k$ o menor del polinomio que se utiliza para integrar.
+- Vimos que el error para la regla de trapecio es:
+$$
+-\frac{f^{\prime \prime} (c) (b-a)}{12} h^2 $$
+¿Qué pasa cuando el polinomio es de grado 1 o menor?
+* El término $f^{\prime \prime}(c)$ se hace cero y la aproximación es exacta.
 
+
+---
+# Cuadratura Gaussiana 
+- Representa un enfoque distinto. 
+- La idea es evitar tener tener que tomar tantos puntos para disminuir el error.
+- Tomaremos pocos puntos, pero la elección debe ser inteligente.
+
+---
+- El objetivo es buscar valores $w_i, x_i$ tal que:
+$$\int_{-1}^1 f(x)dx \approx \sum_{i=1}^n w_i \cdot f(x_i)
+$$
+- No tenemos restricciones sobre $w_i, x_i$, pero nos interesa que esta aproximación sea exacta para polinomios del mayor grado posible.
+> No nos interesan las soluciones con $w_i = 0$ o $x_i = 0$.
+- Motivación: Si es exacta para polinomio de grados alto, entonces **quizas** sea bastante precisa para funciones que son bien aproximadas por polinomios.
+
+---
+- Al aproximar con $n$ puntos de cuadratura el grado de precisión será $2n - 1$.
+- Como aproximaremos con polinomios, usaremos $f(x) = x^k$.
+- Al usar $n$ puntos de cuadratura deberemos resolver un sistema con $2n$ ecuaciones para encontrar $w_i, x_i$.
+- Para $i = 0, \dots, 2n-1$ las ecuaciones serán:
+
+$$ w_1 x_1^i + \cdots + w_n x_n^i = \int_{-1}^1 x^idx
+$$
+
+---
+- Para cambiar el intervalo de integración usaremos:
+
+$$\int_a^b F(x) dx = \frac{b-a}{2} \int_{-1}^1 F(\frac{b + a + t(b-a)}{2})dt$$
+
+- Los valores $w_i$ cumplen $x_i > 0$.
+---
+### Análisis error
+- El error cometido por esta estrategia viene dado por:
+
+$$ E_n (f) = \int_{-1}^1 f(x)dx - \sum_{i=1}^n w_i \cdot f(x_i) =  e_n \frac{f^{(2n)}(c_n)}{2n!} $$
+
+- Donde: $\displaystyle e_n = \frac{2^{2n + 1} (n!)^4}{(2n + 1) [(2n)!]^4} \approx \frac{\pi}{4^n}$ y $c_n \in [a,b]$.
+
+---
+### Ejemplo :smiley:
+- Queremos valores $w_1, x_1$ tal que:
+$$\int_{-1}^1 f(x)dx \approx w_1 f(x_1)$$
+- Como debe ser exacto para polinomios de hasta grado $2n - 1 = 1$ tenemos:
+
+$$ w_1 x_1^0 = \int_{-1}^1 x^0 dx \\ w_1x_1 = \int_{-1}^1 x^1 dx  $$
+
+---
+- Esto se resume a:
+
+$$ w_1 = 2\\ w_1x_1 = 0  $$
+
+- Por lo tanto $w_1 = 2$ y $x_1 = 0$.
+- Así nuestra aproximación será:
+$$\int_{-1}^1 f(x)dx \approx 2 f(0)$$
+
+> Este resultado parece conocido...
+
+
+---
+# Ejercicios
+1. Obtenga la expresión para el error de la regla del trapecio en un intervalo $[x_0, x_1]$.
+2. Obtenga la regla de cuadratura Gaussiana para el cálculo de $\displaystyle \int_{-1}^1 f(x)dx$ con dos puntos de cuadratura.
+3. Solucione con lo obtenido en 2: $\displaystyle \int_{-1}^1 \frac{dx}{3 + x}$.
+**Hint**: El valor real es $ln \space 2$.
+
+4. Programe la Regla del Rectángulo, Trapecio y Simpson.
+
+---
 # Recomendaciones
-1. https://es.khanacademy.org/math/ap-calculus-ab/ab-integration-new/ab-6-2/a/understanding-the-trapezoid-rule
+1. http://pages.cs.wisc.edu/~amos/412/lecture-notes/
+2. https://personales.unican.es/segurajj/quad.pdf.
